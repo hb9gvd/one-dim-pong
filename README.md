@@ -14,6 +14,7 @@ Firmware Versions
 ============
 To use with 100ms pulse coin counter 
 [Arduino code and used libraries](./software/).
+Version for Silverball Prototype Hardware are available too.
 
 
 Schematic
