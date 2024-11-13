@@ -29,17 +29,18 @@ uint8_t bright;
 #define minBrightAnim 10    // lowest brightness
 #define maxBrightAnim 255   // highest brightness
 
-#define PIN_WSDATA		2		// LED data
-#define PIN_BUT_LS		3		// Right start/hit button
-#define PIN_BUT_LP		4		// Right power-up button
-#define PIN_BUT_RS		5		// Left start/hit button
-#define PIN_BUT_RP		6		// Left power-up button
-#define PIN_COIN       7    // Coin pulse
-#define PIN_SOUND		9		// Buzzer output (PB1/OC1A)
-#define PIN_LED_RP		10		// Left power-up button light
-#define PIN_LED_RS		11		// Left start/hit button light
-#define PIN_LED_LP		12		// Right power-up button light
-#define PIN_LED_LS		13		// Right start/hit button light
+#define PIN_WSDATA    13  // LED data
+#define PIN_BUT_LS    8   // Right start/hit button
+#define PIN_BUT_LP    3   // Right power-up button
+#define PIN_BUT_RS    4   // Left start/hit button
+#define PIN_BUT_RP    5   // Left power-up button
+#define PIN_COIN      2   // Coin pulse
+#define PIN_SOUND     9   // Buzzer output (PB1/OC1A)
+#define PIN_LED_RP    11  // Left power-up button light
+#define PIN_LED_RS    10  // Left start/hit button light
+#define PIN_LED_LP    7   // Right power-up button light
+#define PIN_LED_LS    6   // Right start/hit button light
+
 
 #define BL_NONE			0x00		// State changes of the button LEDs
 #define BL_LS			0x01
@@ -855,9 +856,9 @@ void loop()
 	// Nothing to do
 	case ST_IDLE:
   // In every state check, if coins are inserted
-    if(chk_ev(EV_COIN)) {
-      ++CREDIT;
-    }  
+  //  if(chk_ev(EV_COIN)) {
+  //    ++CREDIT;
+  //  }  
   // If CREDIT available, decrease CREDIT and start game
 		if(chk_ev(EV_BUT_LS_PRESS) && (CREDIT)) {
 			--CREDIT;
@@ -874,9 +875,9 @@ void loop()
 	// Game is started, waiting for left player to serve the ball
 	case ST_START_L:
   // In every state check, if coins are inserted
-    if(chk_ev(EV_COIN)) {
-      ++CREDIT;
-    }  
+  //  if(chk_ev(EV_COIN)) {
+  //    ++CREDIT;
+  //  }  
 		if(chk_ev(EV_BUT_LS_PRESS)) {
 			set_state(ST_MOVE_LR);
 		} else if(chk_ev(EV_TIMEOUT)) {
@@ -895,9 +896,9 @@ void loop()
 	// Game is started, waiting for right player to serve the ball
 	case ST_START_R:
   // In every state check, if coins are inserted
-    if(chk_ev(EV_COIN)) {
-      ++CREDIT;
-    }  
+  //  if(chk_ev(EV_COIN)) {
+  //    ++CREDIT;
+  //  }  
 		if(chk_ev(EV_BUT_RS_PRESS)) {
 			set_state(ST_MOVE_RL);
 		} else if(chk_ev(EV_TIMEOUT)) {
@@ -915,14 +916,14 @@ void loop()
 
 	// Ball is moving left-to-right outside the playback zone
   // In every state check, if coins are inserted
-    if(chk_ev(EV_COIN)) {
-      ++CREDIT;
-    }  
+  //  if(chk_ev(EV_COIN)) {
+  //    ++CREDIT;
+  //  }  
 	case ST_MOVE_LR:
   // In every state check, if coins are inserted
-    if(chk_ev(EV_COIN)) {
-      ++CREDIT;
-    }  
+  //  if(chk_ev(EV_COIN)) {
+  //    ++CREDIT;
+  //  }  
 		if(chk_ev(EV_TIMER)) {
 			if(!--tonecount) {
 				set_tone(NOTE_G4, TIME_TONE_MOVE);
@@ -941,9 +942,9 @@ void loop()
 	// Ball is moving right-to-left outside the playback zone
 	case ST_MOVE_RL:
   // In every state check, if coins are inserted
-    if(chk_ev(EV_COIN)) {
-      ++CREDIT;
-    }  
+  //  if(chk_ev(EV_COIN)) {
+  //    ++CREDIT;
+  //  }  
 		if(chk_ev(EV_TIMER)) {
 			if(!--tonecount) {
 				set_tone(NOTE_G4, TIME_TONE_MOVE);
@@ -961,14 +962,14 @@ void loop()
 
 	// Ball is in the left playback zone, waiting for hit/score
   // In every state check, if coins are inserted
-    if(chk_ev(EV_COIN)) {
-      ++CREDIT;
-    }  
+  //  if(chk_ev(EV_COIN)) {
+  //    ++CREDIT;
+  //  }  
 	case ST_ZONE_L:
   // In every state check, if coins are inserted
-    if(chk_ev(EV_COIN)) {
-      ++CREDIT;
-    }  
+  //  if(chk_ev(EV_COIN)) {
+  //    ++CREDIT;
+  //  }  
 		if(chk_ev(EV_BUT_LS_PRESS)) {
 			set_tone(NOTE_G3, TIME_TONE_BOUNCE);
 			set_state(ST_MOVE_LR);
@@ -1000,9 +1001,9 @@ void loop()
 	// Ball is in the right playback zone, waiting for hit/score
 	case ST_ZONE_R:
   // In every state check, if coins are inserted
-    if(chk_ev(EV_COIN)) {
-      ++CREDIT;
-    }  
+  //  if(chk_ev(EV_COIN)) {
+  //    ++CREDIT;
+  //  }  
 		if(chk_ev(EV_BUT_RS_PRESS)) {
 			set_tone(NOTE_G3, TIME_TONE_BOUNCE);
 			set_state(ST_MOVE_RL);
@@ -1034,9 +1035,9 @@ void loop()
 	// Left player scored, animate point
 	case ST_POINT_L:
   // In every state check, if coins are inserted
-    if(chk_ev(EV_COIN)) {
-      ++CREDIT;
-    }  
+  //  if(chk_ev(EV_COIN)) {
+  //    ++CREDIT;
+  //  }  
 		if(chk_ev(EV_BUT_LS_PRESS)) {
 			set_state(ST_RESUME_L);
 		} else if(chk_ev(EV_TIMER)) {
@@ -1058,9 +1059,9 @@ void loop()
 	// Right player scored, animate point
 	case ST_POINT_R:
   // In every state check, if coins are inserted
-    if(chk_ev(EV_COIN)) {
-      ++CREDIT;
-    }  
+  //  if(chk_ev(EV_COIN)) {
+  //    ++CREDIT;
+  //  }  
 		if(chk_ev(EV_BUT_RS_PRESS)) {
 			set_state(ST_RESUME_R);
 		} else if(chk_ev(EV_TIMER)) {
@@ -1082,9 +1083,9 @@ void loop()
 	// Left player previously scored and must serve again (or timeout to auto-serve)
 	case ST_RESUME_L:
   // In every state check, if coins are inserted
-    if(chk_ev(EV_COIN)) {
-      ++CREDIT;
-    }  
+  //  if(chk_ev(EV_COIN)) {
+  //    ++CREDIT;
+  //  }  
 		if(chk_ev(EV_BUT_LS_PRESS | EV_TIMEOUT)) {
 			set_state(ST_MOVE_LR);
 			set_tone(NOTE_F3, TIME_TONE_SERVE);
@@ -1102,9 +1103,9 @@ void loop()
 	// Right player previously scored and must serve again (or timeout to auto-serve)
 	case ST_RESUME_R:
   // In every state check, if coins are inserted
-    if(chk_ev(EV_COIN)) {
-      ++CREDIT;
-    }  
+  //  if(chk_ev(EV_COIN)) {
+  //    ++CREDIT;
+  //  }  
 		if(chk_ev(EV_BUT_RS_PRESS | EV_TIMEOUT)) {
 			set_state(ST_MOVE_RL);
 			set_tone(NOTE_F3, TIME_TONE_SERVE);
@@ -1123,9 +1124,9 @@ void loop()
 	case ST_WIN_L:
 	case ST_WIN_R:
   // In every state check, if coins are inserted
-    if(chk_ev(EV_COIN)) {
-      ++CREDIT;
-    }  
+  //  if(chk_ev(EV_COIN)) {
+  //    ++CREDIT;
+  //  }  
 		if(chk_ev(EV_TONETIMER)) {
 			events &= ~EV_TONETIMER;	// Remove the event so we don't get messed up with a set_tone(0, 0) below call
 			tune_next();
